@@ -10,6 +10,7 @@ end
 
 get '/events/new' do
 
+  @new_event = Event.new
 
   # this is where I'll place a call to model to create a new 
   # event object
@@ -20,8 +21,14 @@ end
 post '/events/create' do
 
 p params
-@new_event = Event.new(params)
+@new_event = Event.new(params[:event])
 
+if @new_event.valid?
+  @new_event.save
+  redirect '/'
+else
+  erb :new
+end
 
 
   # this is where I'll implement the create method from AR

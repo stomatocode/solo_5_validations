@@ -1,7 +1,17 @@
+
+<% if @new_event.errors.any? %>
+  <% @new_event.errors.full_messages.each do |message| %>
+    <p> <%= message %> </p>
+  <% end %>
+<% end %>
+
+<!-- <%= @new_event.organizer_name %>  -->
 <form method='post' action='/events/create'>
 
-<p>Name:  <input type='text' name='organizer_name'></p>
-<p>Email: <input type='text' name='organizer_email'></p>
-<p>Date:  <input type='date' name='date'></p>
+<p>Title:  <input type='text' name='event[organizer_name]' value='<%= @new_event.organizer_name %>'></p>
+
+<p>Name:  <input type='text' name='event[organizer_name]' value='<%= @new_event.organizer_name %>'></p>
+<p>Email: <input type='text' name='event[organizer_email]' value='<%= @new_event.organizer_email %>'></p>
+<p>Date:  <input type='date' name='event[date]' value='<%= @new_event.date %>'></p>
 <input type='submit' value='Create Event'>
 </form>

@@ -10,16 +10,18 @@ class Event < ActiveRecord::Base
   validate :date_valid
 
   def date_valid
-    if self.date < Date.today && self.date.present? && self.date == Date.class
-
+    puts '*'*50
+    puts date
+    if self.date && self.date < Date.today
+      errors.add(:date, "Date must be present and can't be in the past")
     end
   end
 
-__END__
-  validates :organizer_email, format: { with: /\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b/,
+  validates :date, presence: true
+  validates :organizer_email, format: { with: /[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/i,
     message: "Please enter a valid email address."}
-  validates_uniqueness_of :organizer_email,
-    message: "A user with that email has already registered." 
+  validates :organizer_email, uniqueness: true
+    # message: "A user with that email has already registered." 
 
 
 
